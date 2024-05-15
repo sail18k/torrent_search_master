@@ -1,0 +1,7 @@
+{
+  "name": "TorrentSearchMaster",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
