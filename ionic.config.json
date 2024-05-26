@@ -1,0 +1,7 @@
+{
+  "name": "torrent_search_master",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
