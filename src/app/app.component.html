@@ -1,5 +1,4 @@
 <!-- src/app/app.component.html -->
-
 <ion-app>
   <ion-header>
     <ion-toolbar>
@@ -8,13 +7,13 @@
       </ion-buttons>
       <ion-title>Torrent Search Master</ion-title>
     </ion-toolbar>
-    <ion-searchbar  (ionInput)="searchTorrents()"></ion-searchbar>
+    <ion-toolbar  *ngIf="!menuActive">
+      <ion-searchbar [debounce]="100" (ionInput)="searchTorrents()"></ion-searchbar>
+    </ion-toolbar>
   </ion-header>
-  <ion-content>
-    
-  </ion-content>
+
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" side="start">
+    <ion-menu (ionWillOpen)="menuActive = true" (ionWillClose)="menuActive = false" contentId="main-content" side="start">
       <ion-header>
         <ion-toolbar>
           <ion-title>Menu</ion-title>

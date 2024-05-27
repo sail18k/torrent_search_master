@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Platform, ToastController } from '@ionic/angular';
+import { MenuController, Platform, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +17,9 @@ export class AppComponent {
 
   public query: string = '';
   public torrents: any[] = [];
+  public menuActive: boolean = false;
 
-  constructor(private toastController: ToastController,private platform: Platform) {
+  constructor(private platform: Platform) {
     this.initializeApp();
   }
 
