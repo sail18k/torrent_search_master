@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +14,16 @@ export class AppComponent {
     { title: 'Contact', url: '/contact', icon: 'call' },
     { title: 'Settings', url: '/settings', icon: 'settings' }
   ];
-  constructor(private platform: Platform) {
+
+  public query: string = '';
+  public torrents: any[] = [];
+
+  constructor(private toastController: ToastController,private platform: Platform) {
     this.initializeApp();
+  }
+
+  searchTorrents() {
+
   }
 
   initializeApp() {
