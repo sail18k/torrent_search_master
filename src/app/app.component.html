@@ -8,7 +8,7 @@
       <ion-title>Torrent Search Master</ion-title>
     </ion-toolbar>
     <ion-toolbar  *ngIf="!menuActive">
-      <ion-searchbar [debounce]="100" (ionInput)="searchTorrents()"></ion-searchbar>
+      <ion-searchbar [debounce]="1000" (ionInput)="searchTorrents($event)"></ion-searchbar>
     </ion-toolbar>
   </ion-header>
 
@@ -30,7 +30,13 @@
         </ion-list>
       </ion-content>
     </ion-menu>
-
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
+  <ion-content>
+    <ion-list *ngIf="showSuggestions && searchResults.length">
+      <ion-item *ngFor="let suggestion of searchResults" (click)="selectSuggestion(suggestion)">
+        {{ suggestion }}
+      </ion-item>
+    </ion-list>
+  </ion-content>
 </ion-app>
