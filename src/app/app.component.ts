@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,20 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  public appPages = [
+    { title: 'Home', url: '/home', icon: 'home' },
+    { title: 'About', url: '/about', icon: 'information-circle' },
+    { title: 'Contact', url: '/contact', icon: 'call' },
+    { title: 'Settings', url: '/settings', icon: 'settings' }
+  ];
+  constructor(private platform: Platform) {
+    this.initializeApp();
+  }
+
+  initializeApp() {
+    this.platform.ready().then(() => {
+      // Add any higher-level native operations here.
+    });
+  }
+
 }
