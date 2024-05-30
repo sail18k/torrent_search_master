@@ -1,4 +1,4 @@
-package com.ionic.starttheme;
+package com.ionic.torrentsearchmaster;
 
 import com.getcapacitor.BridgeActivity;
 
