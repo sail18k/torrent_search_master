@@ -12,16 +12,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 // NgCharts
 import { NgChartsModule } from 'ng2-charts';
+import { SafePipe } from './safe.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SafePipe],
   entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     ReactiveFormsModule,
     AppRoutingModule,
-    NgChartsModule
+    NgChartsModule,
+    HttpClientModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

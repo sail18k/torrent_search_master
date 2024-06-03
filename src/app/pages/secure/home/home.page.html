@@ -5,7 +5,12 @@
     </ion-title>
   </ion-toolbar>
   <ion-toolbar color="dark">
-    <ion-searchbar placeholder="Search Torrents" (ionInput)="handleSearch($event)"></ion-searchbar>
+    <ion-searchbar placeholder="Search Torrents" [debounce]="500" (ionChange)="handleSearch($event)"></ion-searchbar>
+    <ion-list class="list-custom" *ngIf="suggestions.length > 0">
+      <ion-item *ngFor="let suggestion of suggestions" (click)="handleSelected(suggestion['tablescraper-selected-row'])">
+        {{ suggestion['tablescraper-selected-row'] }}
+      </ion-item>
+    </ion-list>
   </ion-toolbar>
 </ion-header>
 
