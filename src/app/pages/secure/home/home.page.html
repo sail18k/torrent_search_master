@@ -7,7 +7,8 @@
   <ion-toolbar color="dark">
     <ion-searchbar placeholder="Search Torrents" [debounce]="500" (ionChange)="handleSearch($event)"></ion-searchbar>
     <ion-list class="list-custom" *ngIf="suggestions.length > 0">
-      <ion-item *ngFor="let suggestion of suggestions" (click)="handleSelected(suggestion['tablescraper-selected-row'])">
+      <ion-item *ngFor="let suggestion of suggestions"
+        (click)="handleSelected(suggestion['tablescraper-selected-row'])">
         {{ suggestion['tablescraper-selected-row'] }}
       </ion-item>
     </ion-list>
@@ -15,46 +16,81 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
+
+  <ion-card class="ion-no-margin torrent-card">
+    <ion-card-content>
+      <ion-avatar>
+        <img src="../../../../assets/torrent-thumbnail.png">
+      </ion-avatar>
+
+      <h1>
+        <ion-text color="tertiary"><strong>Torrent Title</strong></ion-text>
+      </h1>
+
+      <p>
+        <ion-text color="medium">Uploaded by: uploader_name</ion-text>
+      </p>
+      <p>
+        <ion-text color="medium">Size: 1.2 GB</ion-text>
+      </p>
+      <p>
+        <ion-text color="medium">Uploaded on: 2024-06-07</ion-text>
+      </p>
+      <p>
+        <ion-text color="medium">Seeders: 150</ion-text>
+      </p>
+      <p>
+        <ion-text color="medium">Leechers: 20</ion-text>
+      </p>
+    </ion-card-content>
+  </ion-card>
 
   <div class="ion-padding">
 
-    <ion-list-header>
-      <ion-label color="tertiary">Results</ion-label>
+    <ion-list-header class="ion-list-header-small">
+      <ion-label>
+        <ion-text color="tertiary">Details</ion-text>
+      </ion-label>
     </ion-list-header>
 
-    <!-- Skeletons -->
-    <ion-list class="item-card-list animate__animated animate__fadeIn" *ngIf="!content_loaded">
-      <ion-item lines="none" color="primary" *ngFor="let i of [].constructor(3);">
-        <ion-avatar slot="start">
-          <ion-skeleton-text animated></ion-skeleton-text>
-        </ion-avatar>
+    <ion-list lines="full">
+      <ion-item color="primary" button>
+        <ion-icon slot="start" color="medium" name="information-circle"></ion-icon>
         <ion-label>
-          <h3><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h3>
-          <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+          <h3>Description</h3>
+        </ion-label>
+      </ion-item>
+      <ion-item color="primary" button>
+        <ion-icon slot="start" color="medium" name="list"></ion-icon>
+        <ion-label>
+          <h3>Files</h3>
         </ion-label>
       </ion-item>
     </ion-list>
 
-    <ion-list class="item-card-list animate__animated animate__fadeIn" *ngIf="content_loaded" lines="none">
-      <ion-item color="primary" button detail>
-        <ion-label color="medium">
-          <h3>$12,123.99</h3>
-          <p>Deutsche Bank AG</p>
+
+
+
+
+
+
+    <ion-list lines="full">
+      <ion-item color="primary" button>
+        <ion-icon slot="start" color="medium" name="download"></ion-icon>
+        <ion-label>
+          <h3>Download Torrent</h3>
         </ion-label>
       </ion-item>
-
-      <ion-item color="primary" button detail>
-        <ion-label color="medium">
-          <h3>$255,000</h3>
-          <p>Bitcoin</p>
+      <ion-item color="primary" button>
+        <ion-icon slot="start" color="medium" name="link"></ion-icon>
+        <ion-label>
+          <h3>Copy Magnet Link</h3>
         </ion-label>
       </ion-item>
-
-      <ion-item color="primary" button detail>
-        <ion-label color="medium">
-          <h3>$1,500.00</h3>
-          <p>PayPal</p>
+      <ion-item color="primary" button>
+        <ion-icon slot="start" color="medium" name="share-social"></ion-icon>
+        <ion-label>
+          <h3>Share</h3>
         </ion-label>
       </ion-item>
     </ion-list>

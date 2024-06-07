@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  styleUrls: ['./home.page.scss', '../settings/settings.page.scss'],
 })
 export class HomePage implements OnInit {
   @ViewChild('iframeElement') iframeElement: ElementRef;
