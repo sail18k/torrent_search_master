@@ -56,7 +56,7 @@
           color="primary"
           button
           detail="false"
-          *ngFor="let i of [].constructor(12);"
+          *ngFor="let i of [].constructor(torrents.length);"
         >
           <ion-avatar slot="start" class="ion-avatar-default-icon">
             <ion-skeleton-text animated></ion-skeleton-text>
@@ -101,7 +101,6 @@
           detail="false"
           *ngFor="let torrent of torrents"
         >
-        {{torrent.title}}
           <ion-avatar slot="start">
             <img [src]="torrent.image" class="no-radius" />
           </ion-avatar>
