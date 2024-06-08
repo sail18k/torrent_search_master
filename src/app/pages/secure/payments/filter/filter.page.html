@@ -22,26 +22,68 @@
 
   <div class="ion-padding">
 
-    <ion-list-header class="ion-list-header-small">
+    <!-- <ion-list-header class="ion-list-header-small">
       <ion-label>
         <ion-text color="tertiary">Data</ion-text>
       </ion-label>
-    </ion-list-header>
+    </ion-list-header> -->
 
     <ion-list class="list-custom" lines="full">
       <ion-item color="primary">
         <ion-label>
-          <p>Categories</p>
+          <p>Sort</p>
         </ion-label>
         <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" value="all" placeholder="All">
-          <ion-select-option value="all">All</ion-select-option>
-          <ion-select-option value="uncategorized">Uncategorized</ion-select-option>
-          <ion-select-option value="salary">Salary</ion-select-option>
-          <ion-select-option value="rent">Rent</ion-select-option>
+          <ion-select-option value="all">Relevance</ion-select-option>
+          <ion-select-option value="sizeAsc">
+            
+              Size555
+              <ion-icon name="arrow-up-outline"></ion-icon>
+            
+          </ion-select-option>
+          <ion-select-option value="sizeDesc">
+            <ion-label>
+              Size
+              <ion-icon name="arrow-down-outline" slot="end"></ion-icon>
+            </ion-label>
+          </ion-select-option>
+          <ion-select-option value="seedsAsc">
+            <ion-label>
+              Seeds
+              <ion-icon name="arrow-up-outline" slot="end"></ion-icon>
+            </ion-label>
+          </ion-select-option>
+          <ion-select-option value="seedsDesc">
+            <ion-label>
+              Seeds
+              <ion-icon name="arrow-down-outline" slot="end"></ion-icon>
+            </ion-label>
+          </ion-select-option>
+          <ion-select-option value="leechesAsc">
+            <ion-label>
+              Leeches
+              <ion-icon name="arrow-up-outline" slot="end"></ion-icon>
+            </ion-label>
+          </ion-select-option>
+          <ion-select-option value="leechesDesc">
+            <ion-label>
+              Leeches
+              <ion-icon name="arrow-down-outline" slot="end"></ion-icon>
+            </ion-label>
+          </ion-select-option>
+        </ion-select>
+        <ion-select labelPlacement="stacked" label="Favorite fruit" value="apple">
+          <ion-icon slot="start" name="leaf" aria-hidden="true"></ion-icon>
+          <ion-select-option value="apple">Apple</ion-select-option>
+          <ion-select-option value="banana">Banana</ion-select-option>
+          <ion-select-option value="orange">Orange</ion-select-option>
+          <ion-button fill="clear" slot="end" aria-label="Show/hide password">
+            <ion-icon slot="icon-only" name="eye" aria-hidden="true"></ion-icon>
+          </ion-button>
         </ion-select>
       </ion-item>
 
-      <ion-item color="primary">
+      <!-- <ion-item color="primary">
         <ion-label>
           <p>Contracts</p>
         </ion-label>
@@ -49,10 +91,10 @@
           <ion-select-option value="all">All</ion-select-option>
           <ion-select-option value="contracts-only">Contracts only</ion-select-option>
         </ion-select>
-      </ion-item>
+      </ion-item> -->
     </ion-list>
 
-    <hr class="hr-medium">
+    <!-- <hr class="hr-medium">
 
     <ion-list-header class="ion-list-header-small">
       <ion-label>
@@ -103,7 +145,7 @@
         <div slot="start">${{range_value_lower}}</div>
         <div slot="end">${{range_value_upper}}</div>
       </ion-item>
-    </ion-list>
+    </ion-list> -->
 
   </div>
 

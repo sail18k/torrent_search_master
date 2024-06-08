@@ -16,8 +16,30 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
   <ion-card class="ion-no-margin profile-card">
+  <ion-list *ngIf="torrents.length > 0; else noResults">
+    <ion-item *ngFor="let torrent of torrents">
+      <ion-thumbnail slot="start">
+        <img [src]="torrent.image" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ torrent.title }}</h2>
+        <p>Size: {{ torrent.size }}</p>
+        <p>Seeds: {{ torrent.seeds }}</p>
+        <p>Leeches: {{ torrent.leeches }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ng-template #noResults>
+    <ion-list-header class="ion-list-header-big">
+      <ion-label>
+        No Results Found
+      </ion-label>
+    </ion-list-header>
+  </ng-template>
+</ion-card>
+
+  <!-- <ion-card class="ion-no-margin profile-card">
     <ion-card-content>
       <ion-avatar>
         <img src="../../../../assets/card-media.png">
@@ -87,6 +109,6 @@
       </ion-item>
     </ion-list>
 
-  </div>
+  </div> -->
 
 </ion-content>

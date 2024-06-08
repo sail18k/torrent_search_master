@@ -1,139 +1,122 @@
 <ion-header collapse="fade" [translucent]="true">
   <ion-toolbar color="dark">
-    <ion-title color="light">
-      Payments
-    </ion-title>
-    <ion-buttons slot="primary">
-      <ion-button color="secondary" (click)="filter()">
+    <ion-title class="ion-text-left" color="light"> Torrent Search Master </ion-title>
+    <ion-buttons class="ion-text-right" slot="primary">
+      <ion-button color="secondary" (click)="openFilter()">
         <ion-icon slot="icon-only" name="filter"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-list class="custom-filter" lines="full">
+      <ion-item color="primary">
+        <ion-label>
+          <p>Sort</p>
+        </ion-label>
+        <ion-select #filterSelect labelPlacement="stacked" label="Torrent Sort" value="all" (ionChange)="filterTorrents($event)">
+          <ion-select-option value="all">Relevance</ion-select-option>
+        <ion-select-option value="sizeAsc" class="icon-asc">Size Asc</ion-select-option>
+        <ion-select-option value="sizeDesc" class="icon-desc">Size Desc</ion-select-option>
+        <ion-select-option value="seedsAsc">Seeds Asc</ion-select-option>
+        <ion-select-option value="seedsDesc">Seeds Desc</ion-select-option>
+        <ion-select-option value="leechesAsc">Leeches Asc</ion-select-option>
+        <ion-select-option value="leechesDesc">Leeches Desc</ion-select-option>
+        </ion-select>
+      </ion-item>
+      </ion-list>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header>
     <ion-toolbar class="toolbar-search">
-      <ion-searchbar color="dark" showCancelButton="focus" placeholder="Company, category, expense ..."></ion-searchbar>
+      <ion-searchbar
+        color="dark"
+        showCancelButton="focus"
+        placeholder="Search torrents..."
+      ></ion-searchbar>
     </ion-toolbar>
   </ion-header>
 
   <div class="ion-padding">
     <!-- Skeletons -->
     <ng-container *ngIf="!content_loaded">
-
       <ion-list-header class="ion-list-header-small">
-        <ion-label><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></ion-label>
+        <ion-label
+          ><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text
+        ></ion-label>
         <ion-note color="tertiary" class="ion-note-small">
           <ion-skeleton-text animated style="width: 40px"></ion-skeleton-text>
         </ion-note>
       </ion-list-header>
 
-      <ion-list class="list-custom animate__animated animate__fadeIn" lines="full">
-        <ion-item color="primary" button detail="false" *ngFor="let i of [].constructor(12);">
+      <ion-list
+        class="list-custom animate__animated animate__fadeIn"
+        lines="full"
+      >
+        <ion-item
+          color="primary"
+          button
+          detail="false"
+          *ngFor="let i of [].constructor(12);"
+        >
           <ion-avatar slot="start" class="ion-avatar-default-icon">
             <ion-skeleton-text animated></ion-skeleton-text>
           </ion-avatar>
           <ion-label>
-            <h3><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h3>
-            <p><ion-skeleton-text animated style="width: 75%"></ion-skeleton-text></p>
+            <h3>
+              <ion-skeleton-text
+                animated
+                style="width: 50%"
+              ></ion-skeleton-text>
+            </h3>
+            <p>
+              <ion-skeleton-text
+                animated
+                style="width: 75%"
+              ></ion-skeleton-text>
+            </p>
           </ion-label>
-          <ion-skeleton-text slot="end" animated style="width: 15%"></ion-skeleton-text>
+          <ion-skeleton-text
+            slot="end"
+            animated
+            style="width: 15%"
+          ></ion-skeleton-text>
         </ion-item>
       </ion-list>
-
     </ng-container>
 
     <ng-container *ngIf="content_loaded">
-
       <ion-list-header class="ion-list-header-small">
-        <ion-label color="tertiary">February, 2023</ion-label>
+        <ion-label color="tertiary" class="ion-label-small">Results</ion-label>
       </ion-list-header>
 
-      <ion-list class="list-custom animate__animated animate__fadeIn" lines="full" *ngIf="content_loaded">
-        <ion-item color="primary" button routerLink="detail" detail="false">
-          <ion-avatar slot="start" class="ion-avatar-default-icon">
-            <ion-icon color="tertiary" size="large" name="cafe-outline"></ion-icon>
+      <ion-list
+        class="list-custom animate__animated animate__fadeIn"
+        lines="full"
+        *ngIf="content_loaded"
+      >
+        <ion-item
+          color="primary"
+          button
+          routerLink="detail"
+          detail="false"
+          *ngFor="let torrent of torrents"
+        >
+        {{torrent.title}}
+          <ion-avatar slot="start">
+            <img [src]="torrent.image" class="no-radius" />
           </ion-avatar>
 
           <ion-label>
-            <h3>Coffee</h3>
-            <p>Lorem Ipsum &middot; 09.04.2023</p>
+            <h3>{{ torrent.title }}</h3>
+            <p>Size: {{ torrent.size }}</p>
+            <p>Seeds: {{ torrent.seeds }}</p>
+            <p>Leeches: {{ torrent.leeches }}</p>
           </ion-label>
-          <ion-badge color="dark" slot="end">Detail</ion-badge>
-        </ion-item>
-
-        <ion-item color="primary" button routerLink="detail" detail="false">
-          <ion-avatar slot="start" class="ion-avatar-default-icon">
-            <ion-icon color="tertiary" size="large" name="cash-outline"></ion-icon>
-          </ion-avatar>
-
-          <ion-label>
-            <h3>Salary</h3>
-            <p>Lorem Ipsum Inc. &middot; 06.03.2023</p>
-          </ion-label>
-          <ion-badge color="dark" slot="end">Detail</ion-badge>
-        </ion-item>
-
-        <ion-item color="primary" button routerLink="detail" detail="false">
-          <ion-avatar slot="start" class="ion-avatar-default-icon">
-            <ion-icon color="tertiary" size="large" name="home-outline"></ion-icon>
-          </ion-avatar>
-
-          <ion-label>
-            <h3>Rent</h3>
-            <p>Lorem Inc. &middot; 03.02.2023</p>
-          </ion-label>
-          <ion-badge color="dark" slot="end">Detail</ion-badge>
+          <ion-badge color="dark" slot="end"
+            ><ion-icon name="download-outline"></ion-icon
+          ></ion-badge>
         </ion-item>
       </ion-list>
-
-      <hr class="hr-medium">
-
-      <ion-list-header class="ion-list-header-small">
-        <ion-label color="tertiary">January, 2023</ion-label>
-      </ion-list-header>
-
-      <ion-list class="list-custom animate__animated animate__fadeIn" lines="full" *ngIf="content_loaded">
-        <ion-item color="primary" button routerLink="detail" detail="false">
-          <ion-avatar slot="start" class="ion-avatar-default-icon">
-            <ion-icon color="tertiary" size="large" name="cafe-outline"></ion-icon>
-          </ion-avatar>
-
-          <ion-label>
-            <h3>Coffee</h3>
-            <p>Lorem Ipsum &middot; 09.04.2023</p>
-          </ion-label>
-          <ion-badge color="dark" slot="end">Detail</ion-badge>
-        </ion-item>
-
-        <ion-item color="primary" button routerLink="detail" detail="false">
-          <ion-avatar slot="start" class="ion-avatar-default-icon">
-            <ion-icon color="tertiary" size="large" name="cash-outline"></ion-icon>
-          </ion-avatar>
-
-          <ion-label>
-            <h3>Salary</h3>
-            <p>Lorem Ipsum Inc. &middot; 06.03.2023</p>
-          </ion-label>
-          <ion-badge color="dark" slot="end">Detail</ion-badge>
-        </ion-item>
-
-        <ion-item color="primary" button routerLink="detail" detail="false">
-          <ion-avatar slot="start" class="ion-avatar-default-icon">
-            <ion-icon color="tertiary" size="large" name="home-outline"></ion-icon>
-          </ion-avatar>
-
-          <ion-label>
-            <h3>Rent</h3>
-            <p>Lorem Inc. &middot; 03.02.2023</p>
-          </ion-label>
-          <ion-badge color="dark" slot="end">Detail</ion-badge>
-        </ion-item>
-      </ion-list>
-
     </ng-container>
-
   </div>
-
 </ion-content>

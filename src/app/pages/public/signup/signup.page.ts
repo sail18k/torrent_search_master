@@ -66,7 +66,7 @@ export class SignupPage implements OnInit {
 
       // Success messages + routing
       this.toastService.presentToast('Welcome!', 'Lorem ipsum', 'top', 'success', 2000);
-      await this.router.navigate(['/home']);
+      await this.router.navigate(['/payments']);
       loading.dismiss();
     }
   }

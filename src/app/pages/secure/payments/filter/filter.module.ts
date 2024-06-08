@@ -13,7 +13,7 @@ import { FilterPage } from './filter.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    FilterPageRoutingModule
+    FilterPageRoutingModule,
   ],
   declarations: [FilterPage]
 })

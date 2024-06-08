@@ -22,6 +22,30 @@ export class HomePage implements OnInit {
   jsonData: any;
   suggestions: string[] = [];
 
+  torrents = [
+    {
+      image: '../../../../assets/card-media.png',
+      title: 'Torrent 1',
+      size: '700 MB',
+      seeds: 123,
+      leeches: 45
+    },
+    {
+      image: '../../../../assets/card-media.png',
+      title: 'Torrent 2',
+      size: '1.4 GB',
+      seeds: 456,
+      leeches: 78
+    },
+    {
+      image: '../../../../assets/card-media.png',
+      title: 'Torrent 3',
+      size: '3.2 GB',
+      seeds: 789,
+      leeches: 12
+    }
+  ];
+
   constructor(private http: HttpClient) {}
 
   handleSearch(event: any) {
