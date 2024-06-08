@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonRouterOutlet, IonSelect, ModalController } from '@ionic/angular';
 import { FilterPage } from './filter/filter.page';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-payments',
@@ -9,134 +11,10 @@ import { FilterPage } from './filter/filter.page';
 })
 export class PaymentsPage implements OnInit {
   @ViewChild('filterSelect', { static: false }) filterSelect: IonSelect;
-  torrents = [
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 1',
-      size: '700 MB',
-      seeds: 123,
-      leeches: 45,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 2',
-      size: '1.4 GB',
-      seeds: 456,
-      leeches: 78,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 3',
-      size: '3.2 GB',
-      seeds: 789,
-      leeches: 12,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 1',
-      size: '700 MB',
-      seeds: 123,
-      leeches: 45,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 2',
-      size: '1.4 GB',
-      seeds: 456,
-      leeches: 78,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 3',
-      size: '3.2 GB',
-      seeds: 789,
-      leeches: 12,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 1',
-      size: '700 MB',
-      seeds: 123,
-      leeches: 45,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 2',
-      size: '1.4 GB',
-      seeds: 456,
-      leeches: 78,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 3',
-      size: '3.2 GB',
-      seeds: 789,
-      leeches: 12,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 1',
-      size: '700 MB',
-      seeds: 123,
-      leeches: 45,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 2',
-      size: '1.4 GB',
-      seeds: 456,
-      leeches: 78,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 3',
-      size: '3.2 GB',
-      seeds: 789,
-      leeches: 12,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 1',
-      size: '700 MB',
-      seeds: 123,
-      leeches: 45,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 2',
-      size: '1.4 GB',
-      seeds: 456,
-      leeches: 78,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 3',
-      size: '3.2 GB',
-      seeds: 789,
-      leeches: 12,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 1',
-      size: '700 MB',
-      seeds: 123,
-      leeches: 45,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 2',
-      size: '1.4 GB',
-      seeds: 456,
-      leeches: 78,
-    },
-    {
-      image: '../../../../assets/card-media.png',
-      title: 'Torrent 3',
-      size: '3.2 GB',
-      seeds: 789,
-      leeches: 12,
-    },
-  ];
+  jsonURL = 'assets/json/fitgirl.json';
+  jsonData: any;
+  torrentSearch = '';
+  torrents: any = [];
 
   showFilter = false;
 
@@ -144,25 +22,63 @@ export class PaymentsPage implements OnInit {
 
   constructor(
     private routerOutlet: IonRouterOutlet,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
     // Fake timeout
+    this.getJSON().subscribe((data) => {
+      this.jsonData = data;
+      this.content_loaded = true;
+    });
+  }
+
+  getJSON(): Observable<any> {
+    return this.http.get(this.jsonURL);
+  }
+
+  openFilter() {
+    this.filterSelect.open();
+  }
+
+  filterTorrents(event: any) {
+    const query = event.target.value.toLowerCase();
+    this.content_loaded = false;
     setTimeout(() => {
       this.content_loaded = true;
     }, 2000);
   }
 
-  openFilter() {
-    this.filterSelect.open();
-    }
+  async handleSearch(event: any) {
+    this.content_loaded = false;
+    const searchTerm = event?.target?.value?.toLowerCase();
 
-    filterTorrents(event: any) {
-      const query = event.target.value.toLowerCase();
-      this.content_loaded = false;
-      setTimeout(() => {
-        this.content_loaded = true;
-      }, 2000);
+    if (searchTerm && searchTerm.trim() !== '') {
+      await this.performSearch(searchTerm);
+    } else {
+      this.torrents = [];
+     this.content_loaded = true;
     }
+  }
+
+  async performSearch(term: string) {
+    try {
+        // Simulate an asynchronous search operation (replace this with your actual search logic)
+        const allPossibleSuggestions = this.jsonData.Sheet1;
+
+        // Filter the suggestions based on the search term
+        this.torrents = allPossibleSuggestions.filter((suggestion) =>
+            suggestion['tablescraper-selected-row']
+                ?.toString()
+                ?.toLowerCase()
+                ?.includes(term.toLowerCase())
+        );
+
+        this.content_loaded = true; // Setting content_loaded after filtering
+    } catch (error) {
+        console.error('Error during search:', error);
+    }
+}
+
 }

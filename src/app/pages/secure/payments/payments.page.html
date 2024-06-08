@@ -32,6 +32,8 @@
         color="dark"
         showCancelButton="focus"
         placeholder="Search torrents..."
+        [debounce]="500" (ionChange)="handleSearch($event)"
+        [(ngModel)]="torrentSearch"
       ></ion-searchbar>
     </ion-toolbar>
   </ion-header>
@@ -94,6 +96,7 @@
         lines="full"
         *ngIf="content_loaded"
       >
+      <ng-container *ngIf="torrents.length > 0">
         <ion-item
           color="primary"
           button
@@ -115,6 +118,27 @@
             ><ion-icon name="download-outline"></ion-icon
           ></ion-badge>
         </ion-item>
+      </ng-container>
+      <ng-container *ngIf="torrentSearch.length > 0 && torrents.length === 0">
+        <ion-item
+        color="primary"
+        button
+        routerLink="detail"
+        detail="false"
+      >
+    <h1 class="color-white">No Torrents Found</h1>
+    </ion-item>
+      </ng-container>
+      <ng-container *ngIf="torrentSearch.length === 0">
+        <ion-item
+        color="primary"
+        button
+        routerLink="detail"
+        detail="false"
+      >
+    <h1 class="color-white">Search For Torrents</h1>
+    </ion-item>
+      </ng-container>
       </ion-list>
     </ng-container>
   </div>
