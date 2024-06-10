@@ -3,6 +3,8 @@ import { SplashScreen } from '@capacitor/splash-screen';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { Capacitor } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
+
 
 @Component({
   selector: 'app-root',
@@ -12,13 +14,16 @@ import { Platform } from '@ionic/angular';
 export class AppComponent {
 
   constructor(
-    private platform: Platform
+    private platform: Platform,
+    private storage: Storage
   ) {
     this.initializeApp();
   }
 
   // Initialize app
-  initializeApp() {
+  async initializeApp() {
+
+    await this.storage.create();
 
     // Wait until platform is ready
     this.platform.ready().then(async () => {
