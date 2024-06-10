@@ -59,6 +59,7 @@ export class PaymentsPage implements OnInit {
       this.displayedTorrents = [];
       this.performSearch(searchTerm);
     } else {
+      this.page = 0;
       this.torrents = [];
       this.displayedTorrents = [];
       this.content_loaded = true;
