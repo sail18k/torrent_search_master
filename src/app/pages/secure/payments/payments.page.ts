@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSelect, IonInfiniteScroll } from '@ionic/angular';
+import { IonSelect, IonInfiniteScroll, AlertController } from '@ionic/angular';
 import { Observable, from, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { delay, filter, tap, map } from 'rxjs/operators';
+import { Browser } from '@capacitor/browser';
 
 @Component({
   selector: 'app-payments',
@@ -12,7 +13,7 @@ import { delay, filter, tap, map } from 'rxjs/operators';
 export class PaymentsPage implements OnInit {
   @ViewChild('filterSelect', { static: false }) filterSelect: IonSelect;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-  jsonURL = 'assets/json/fitgirl.json';
+  jsonURL = 'assets/json/fitgirl-final.json';
   jsonData: any;
   torrentSearch = '';
   torrents: any = [];
@@ -23,7 +24,8 @@ export class PaymentsPage implements OnInit {
   pageSize = 10;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -67,10 +69,10 @@ export class PaymentsPage implements OnInit {
   }
 
   performSearch(term: string) {
-    from(this.jsonData.Sheet1)
+    from(this.jsonData)
       .pipe(
         filter((suggestion: any) =>
-          suggestion['tablescraper-selected-row']
+          suggestion.game
             ?.toString()
             ?.toLowerCase()
             ?.includes(term.toLowerCase())
@@ -102,5 +104,23 @@ export class PaymentsPage implements OnInit {
         event.target.disabled = true;
       }
     }, 500);
+  }
+
+  async showAlert() {
+    const alert = await this.alertController.create({
+      header: 'No Torrent App Found',
+      message: 'Please download a torrent app and try again.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async openTorrent(magnetLink: any): Promise<void> {
+    try {
+      await Browser.open({ url: magnetLink });
+    } catch (error) {
+      this.showAlert();
+    }
   }
 }

@@ -1,11 +1,11 @@
 <ion-header collapse="fade" [translucent]="true">
   <ion-toolbar color="dark">
     <ion-title class="ion-text-left" color="light">Torrent Search Master</ion-title>
-    <ion-buttons class="ion-text-right" slot="primary">
+    <!-- <ion-buttons class="ion-text-right" slot="primary">
       <ion-button color="secondary" (click)="openFilter()">
         <ion-icon slot="icon-only" name="filter"></ion-icon>
       </ion-button>
-    </ion-buttons>
+    </ion-buttons> -->
     <ion-list class="custom-filter" lines="full">
       <ion-item color="primary">
         <ion-label>
@@ -72,13 +72,13 @@
 
       <ion-list class="list-custom animate__animated animate__fadeIn" lines="full">
         <ng-container *ngIf="displayedTorrents.length > 0">
-          <ion-item color="primary" button detail="false" *ngFor="let torrent of displayedTorrents">
+          <ion-item color="primary" button detail="false" *ngFor="let torrent of displayedTorrents" (click)='openTorrent(torrent.click_results)'>
             <ion-avatar slot="start">
-              <img [src]="torrent.image" class="no-radius" />
+              <img [src]="torrent.image_src" class="no-radius" />
             </ion-avatar>
             <ion-label>
-              <h3>{{ torrent['tablescraper-selected-row'] }}</h3>
-              <p>Size: {{ torrent.size }}</p>
+              <h3>{{ torrent.game }}</h3>
+              <p>Size: {{ torrent.repack_size }}</p>
               <p>Seeds: {{ torrent.seeds }}</p>
               <p>Leeches: {{ torrent.leeches }}</p>
             </ion-label>
