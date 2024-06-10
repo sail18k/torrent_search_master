@@ -1,6 +1,6 @@
 <ion-header collapse="fade" [translucent]="true">
   <ion-toolbar color="dark">
-    <ion-title class="ion-text-left" color="light"> Torrent Search Master </ion-title>
+    <ion-title class="ion-text-left" color="light">Torrent Search Master</ion-title>
     <ion-buttons class="ion-text-right" slot="primary">
       <ion-button color="secondary" (click)="openFilter()">
         <ion-icon slot="icon-only" name="filter"></ion-icon>
@@ -13,15 +13,15 @@
         </ion-label>
         <ion-select #filterSelect labelPlacement="stacked" label="Torrent Sort" value="all" (ionChange)="filterTorrents($event)">
           <ion-select-option value="all">Relevance</ion-select-option>
-        <ion-select-option value="sizeAsc" class="icon-asc">Size Asc</ion-select-option>
-        <ion-select-option value="sizeDesc" class="icon-desc">Size Desc</ion-select-option>
-        <ion-select-option value="seedsAsc">Seeds Asc</ion-select-option>
-        <ion-select-option value="seedsDesc">Seeds Desc</ion-select-option>
-        <ion-select-option value="leechesAsc">Leeches Asc</ion-select-option>
-        <ion-select-option value="leechesDesc">Leeches Desc</ion-select-option>
+          <ion-select-option value="sizeAsc" class="icon-asc">Size Asc</ion-select-option>
+          <ion-select-option value="sizeDesc" class="icon-desc">Size Desc</ion-select-option>
+          <ion-select-option value="seedsAsc">Seeds Asc</ion-select-option>
+          <ion-select-option value="seedsDesc">Seeds Desc</ion-select-option>
+          <ion-select-option value="leechesAsc">Leeches Asc</ion-select-option>
+          <ion-select-option value="leechesDesc">Leeches Desc</ion-select-option>
         </ion-select>
       </ion-item>
-      </ion-list>
+    </ion-list>
   </ion-toolbar>
 </ion-header>
 
@@ -42,46 +42,28 @@
     <!-- Skeletons -->
     <ng-container *ngIf="!content_loaded">
       <ion-list-header class="ion-list-header-small">
-        <ion-label
-          ><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text
-        ></ion-label>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </ion-label>
         <ion-note color="tertiary" class="ion-note-small">
           <ion-skeleton-text animated style="width: 40px"></ion-skeleton-text>
         </ion-note>
       </ion-list-header>
 
-      <ion-list
-        class="list-custom animate__animated animate__fadeIn"
-        lines="full"
-      >
-        <ion-item
-          color="primary"
-          button
-          detail="false"
-          *ngFor="let i of [].constructor(torrents.length);"
-        >
+      <ion-list class="list-custom animate__animated animate__fadeIn" lines="full">
+        <ion-item color="primary" button detail="false" *ngFor="let i of [].constructor(5)">
           <ion-avatar slot="start" class="ion-avatar-default-icon">
             <ion-skeleton-text animated></ion-skeleton-text>
           </ion-avatar>
           <ion-label>
             <h3>
-              <ion-skeleton-text
-                animated
-                style="width: 50%"
-              ></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
             </h3>
             <p>
-              <ion-skeleton-text
-                animated
-                style="width: 75%"
-              ></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 75%"></ion-skeleton-text>
             </p>
           </ion-label>
-          <ion-skeleton-text
-            slot="end"
-            animated
-            style="width: 15%"
-          ></ion-skeleton-text>
+          <ion-skeleton-text slot="end" animated style="width: 15%"></ion-skeleton-text>
         </ion-item>
       </ion-list>
     </ng-container>
@@ -91,55 +73,38 @@
         <ion-label color="tertiary" class="ion-label-small">Results</ion-label>
       </ion-list-header>
 
-      <ion-list
-        class="list-custom animate__animated animate__fadeIn"
-        lines="full"
-        *ngIf="content_loaded"
-      >
-      <ng-container *ngIf="torrents.length > 0">
-        <ion-item
-          color="primary"
-          button
-          routerLink="detail"
-          detail="false"
-          *ngFor="let torrent of torrents"
-        >
-          <ion-avatar slot="start">
-            <img [src]="torrent.image" class="no-radius" />
-          </ion-avatar>
-
-          <ion-label>
-            <h3>{{ torrent.title }}</h3>
-            <p>Size: {{ torrent.size }}</p>
-            <p>Seeds: {{ torrent.seeds }}</p>
-            <p>Leeches: {{ torrent.leeches }}</p>
-          </ion-label>
-          <ion-badge color="dark" slot="end"
-            ><ion-icon name="download-outline"></ion-icon
-          ></ion-badge>
-        </ion-item>
-      </ng-container>
-      <ng-container *ngIf="torrentSearch.length > 0 && torrents.length === 0">
-        <ion-item
-        color="primary"
-        button
-        routerLink="detail"
-        detail="false"
-      >
-    <h1 class="color-white">No Torrents Found</h1>
-    </ion-item>
-      </ng-container>
-      <ng-container *ngIf="torrentSearch.length === 0">
-        <ion-item
-        color="primary"
-        button
-        routerLink="detail"
-        detail="false"
-      >
-    <h1 class="color-white">Search For Torrents</h1>
-    </ion-item>
-      </ng-container>
+      <ion-list class="list-custom animate__animated animate__fadeIn" lines="full">
+        <ng-container *ngIf="displayedTorrents.length > 0">
+          <ion-item color="primary" button detail="false" *ngFor="let torrent of displayedTorrents">
+            <ion-avatar slot="start">
+              <img [src]="torrent.image" class="no-radius" />
+            </ion-avatar>
+            <ion-label>
+              <h3>{{ torrent['tablescraper-selected-row'] }}</h3>
+              <p>Size: {{ torrent.size }}</p>
+              <p>Seeds: {{ torrent.seeds }}</p>
+              <p>Leeches: {{ torrent.leeches }}</p>
+            </ion-label>
+            <ion-badge color="dark" slot="end">
+              <ion-icon name="download-outline"></ion-icon>
+            </ion-badge>
+          </ion-item>
+        </ng-container>
+        <ng-container *ngIf="torrentSearch.length > 0 && displayedTorrents.length === 0">
+          <ion-item color="primary" button detail="false">
+            <h1 class="color-white">No Torrents Found</h1>
+          </ion-item>
+        </ng-container>
+        <ng-container *ngIf="torrentSearch.length === 0">
+          <ion-item color="primary" button detail="false">
+            <h1 class="color-white">Search For Torrents</h1>
+          </ion-item>
+        </ng-container>
       </ion-list>
+      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more torrents...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
     </ng-container>
   </div>
 </ion-content>
