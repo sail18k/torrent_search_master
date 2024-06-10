@@ -23,21 +23,18 @@
       </ion-item>
     </ion-list>
   </ion-toolbar>
+  <ion-toolbar class="toolbar-search">
+    <ion-searchbar
+      color="dark"
+      showCancelButton="focus"
+      placeholder="Search torrents..."
+      [debounce]="500" (ionChange)="handleSearch($event)"
+      [(ngModel)]="torrentSearch"
+    ></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header>
-    <ion-toolbar class="toolbar-search">
-      <ion-searchbar
-        color="dark"
-        showCancelButton="focus"
-        placeholder="Search torrents..."
-        [debounce]="500" (ionChange)="handleSearch($event)"
-        [(ngModel)]="torrentSearch"
-      ></ion-searchbar>
-    </ion-toolbar>
-  </ion-header>
-
   <div class="ion-padding">
     <!-- Skeletons -->
     <ng-container *ngIf="!content_loaded">
