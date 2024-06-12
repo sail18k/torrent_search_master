@@ -14,7 +14,7 @@
     "cap:sync": "npx cap sync",
     "cap:copy": "npx cap copy",
     "cap:open": "npx cap open android",
-    "build:android": "npm run build && npm run cap:sync && npm run cap:copy && npm run cap:open"
+    "android": "npm run build && npm run cap:sync && npm run cap:copy && npm run cap:open"
   },
   "private": true,
   "dependencies": {
