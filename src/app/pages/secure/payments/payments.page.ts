@@ -54,11 +54,11 @@ export class PaymentsPage implements OnInit {
   handleSearch(event: any) {
     this.content_loaded = false;
     const searchTerm = event?.target?.value?.toLowerCase();
-
     if (searchTerm && searchTerm.trim() !== '') {
       this.page = 0;
       this.torrents = [];
       this.displayedTorrents = [];
+      this.infiniteScroll.disabled = false; // Resetting infinite scroll
       this.performSearch(searchTerm);
     } else {
       this.page = 0;
@@ -68,14 +68,12 @@ export class PaymentsPage implements OnInit {
     }
   }
 
+
   performSearch(term: string) {
     from(this.jsonData)
       .pipe(
         filter((suggestion: any) =>
-          suggestion.game
-            ?.toString()
-            ?.toLowerCase()
-            ?.includes(term.toLowerCase())
+          (suggestion.game || '').toString().match(new RegExp(term, 'i'))
         ),
         tap((suggestion) => this.torrents.push(suggestion)),
         tap(() => {
