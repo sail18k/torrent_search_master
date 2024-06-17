@@ -13,7 +13,7 @@ import { Browser } from '@capacitor/browser';
 export class PaymentsPage implements OnInit {
   @ViewChild('filterSelect', { static: false }) filterSelect: IonSelect;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-  jsonURL = 'assets/json/fitgirl-final.json';
+  jsonURL = 'https://cdn.jsdelivr.net/gh/sail18k/torrent_search_master@main/src/assets/json/fitgirl-final.json';
   jsonData: any;
   torrentSearch = '';
   torrents: any = [];
