@@ -22,6 +22,7 @@ export class PaymentsPage implements OnInit {
   content_loaded = false;
   page = 0;
   pageSize = 10;
+  isModalOpen = false;
 
   constructor(
     private http: HttpClient,
@@ -115,10 +116,11 @@ export class PaymentsPage implements OnInit {
   }
 
   async openTorrent(magnetLink: any): Promise<void> {
-    try {
-      await Browser.open({ url: magnetLink });
-    } catch (error) {
-      this.showAlert();
-    }
+    this.isModalOpen = !this.isModalOpen
+    // try {
+    //   await Browser.open({ url: magnetLink });
+    // } catch (error) {
+    //   this.showAlert();
+    // }
   }
 }
