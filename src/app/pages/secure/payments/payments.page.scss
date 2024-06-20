@@ -56,3 +56,25 @@
     color: white;
   }
 }
+ion-modal {
+  --max-height: 30vh;
+  --max-width: 80%;
+}
+.icon-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 80px;
+  text-align: center;
+
+  ion-icon {
+    font-size: 2em;
+    margin-bottom: 5px;
+  }
+
+  ion-label {
+    font-size: 0.8em;
+  }
+}

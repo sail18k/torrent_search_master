@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSelect, IonInfiniteScroll, AlertController } from '@ionic/angular';
+import { IonSelect, IonInfiniteScroll, AlertController, ToastController } from '@ionic/angular';
 import { Observable, from, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { delay, filter, tap, map } from 'rxjs/operators';
 import { Browser } from '@capacitor/browser';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-payments',
@@ -26,7 +27,8 @@ export class PaymentsPage implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private clipboard: Clipboard, private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -122,5 +124,26 @@ export class PaymentsPage implements OnInit {
     // } catch (error) {
     //   this.showAlert();
     // }
+  }
+
+  share() {
+
+  }
+
+  copy() {
+    this.clipboard.beginCopy('Text to copy');
+    this.presentToast('Copied to clipboard');
+  }
+
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  download() {
+
   }
 }
