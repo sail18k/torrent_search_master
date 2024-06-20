@@ -1,0 +1,68 @@
+{
+  // These tasks will run in order when initializing your CodeSandbox project.
+  "setupTasks": [
+    {
+      "name": "Install Dependencies",
+      "command": "npm install --legacy-peer-deps"
+    }
+  ],
+
+  // These tasks can be run from CodeSandbox. Running one will open a log in the app.
+  "tasks": {
+    "ng": {
+      "name": "ng",
+      "command": "npm run ng",
+      "runAtStart": false
+    },
+    "start": {
+      "name": "start",
+      "command": "npm run start",
+      "runAtStart": true
+    },
+    "build": {
+      "name": "build",
+      "command": "npm run build",
+      "runAtStart": false
+    },
+    "prod": {
+      "name": "prod",
+      "command": "npm run prod",
+      "runAtStart": false
+    },
+    "test": {
+      "name": "test",
+      "command": "npm run test",
+      "runAtStart": false
+    },
+    "lint": {
+      "name": "lint",
+      "command": "npm run lint",
+      "runAtStart": false
+    },
+    "e2e": {
+      "name": "e2e",
+      "command": "npm run e2e",
+      "runAtStart": false
+    },
+    "cap:sync": {
+      "name": "cap:sync",
+      "command": "npm run cap:sync",
+      "runAtStart": false
+    },
+    "cap:copy": {
+      "name": "cap:copy",
+      "command": "npm run cap:copy",
+      "runAtStart": false
+    },
+    "cap:open": {
+      "name": "cap:open",
+      "command": "npm run cap:open",
+      "runAtStart": false
+    },
+    "android": {
+      "name": "android",
+      "command": "npm run android",
+      "runAtStart": false
+    }
+  }
+}
