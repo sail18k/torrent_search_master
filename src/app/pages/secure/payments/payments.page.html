@@ -11,7 +11,8 @@
         <ion-label>
           <p>Sort</p>
         </ion-label>
-        <ion-select #filterSelect labelPlacement="stacked" label="Torrent Sort" value="all" (ionChange)="filterTorrents($event)">
+        <ion-select #filterSelect labelPlacement="stacked" label="Torrent Sort" value="all"
+          (ionChange)="filterTorrents($event)">
           <ion-select-option value="all">Relevance</ion-select-option>
           <ion-select-option value="sizeAsc" class="icon-asc">Size Asc</ion-select-option>
           <ion-select-option value="sizeDesc" class="icon-desc">Size Desc</ion-select-option>
@@ -24,13 +25,8 @@
     </ion-list>
   </ion-toolbar>
   <ion-toolbar class="toolbar-search">
-    <ion-searchbar
-      color="dark"
-      showCancelButton="focus"
-      placeholder="Search torrents..."
-      [debounce]="500" (ionChange)="handleSearch($event)"
-      [(ngModel)]="torrentSearch"
-    ></ion-searchbar>
+    <ion-searchbar color="dark" showCancelButton="focus" placeholder="Search torrents..." [debounce]="500"
+      (ionChange)="handleSearch($event)" [(ngModel)]="torrentSearch"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
@@ -67,12 +63,13 @@
 
     <ng-container *ngIf="content_loaded">
       <ion-list-header class="ion-list-header-small">
-        <ion-label color="tertiary" class="ion-label-small">Results</ion-label>
+        <ion-label *ngIf="displayedTorrents.length > 0" color="tertiary" class="ion-label-small">Results</ion-label>
       </ion-list-header>
 
       <ion-list class="list-custom animate__animated animate__fadeIn" lines="full">
         <ng-container *ngIf="displayedTorrents.length > 0">
-          <ion-item color="primary" button detail="false" *ngFor="let torrent of displayedTorrents" (click)='openTorrent(torrent.click_results)'>
+          <ion-item color="primary" button detail="false" *ngFor="let torrent of displayedTorrents"
+            (click)='openTorrent(torrent.click_results)'>
             <ion-avatar slot="start">
               <img [src]="torrent.image_src" class="no-radius" />
             </ion-avatar>
@@ -89,12 +86,14 @@
         </ng-container>
         <ng-container *ngIf="torrentSearch.length > 0 && displayedTorrents.length === 0">
           <ion-item color="primary" button detail="false">
-            <h1 class="color-white">No Torrents Found</h1>
+            <!-- <h1 class="color-white">No Torrents Found</h1> -->
+            <ion-img src="assets/not_found.png"></ion-img>
           </ion-item>
         </ng-container>
         <ng-container *ngIf="torrentSearch.length === 0">
           <ion-item color="primary" button detail="false">
-            <h1 class="color-white">Search For Torrents</h1>
+            <!-- <h1 class="color-white">Search For Torrents</h1> -->
+            <ion-img src="assets/search_banner.png"></ion-img>
           </ion-item>
         </ng-container>
       </ion-list>
