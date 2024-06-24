@@ -4,7 +4,7 @@ import { Observable, from, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { delay, filter, tap, map } from 'rxjs/operators';
 import { Browser } from '@capacitor/browser';
-import { Clipboard } from '@angular/cdk/clipboard';
+import { Clipboard } from '@capacitor/clipboard';
 
 @Component({
   selector: 'app-payments',
@@ -118,7 +118,7 @@ export class PaymentsPage implements OnInit {
   }
 
   async openTorrent(magnetLink: any): Promise<void> {
-    this.isModalOpen = !this.isModalOpen
+    this.isModalOpen = !this.isModalOpen;
     // try {
     //   await Browser.open({ url: magnetLink });
     // } catch (error) {
@@ -131,13 +131,18 @@ export class PaymentsPage implements OnInit {
   }
 
   copy() {
-    this.clipboard.beginCopy('Text to copy');
+    const writeToClipboard = async () => {
+      await Clipboard.write({
+        // eslint-disable-next-line id-blacklist
+        string: 'Hello World!'
+      });
+    };
     this.presentToast('Copied to clipboard');
   }
 
   async presentToast(message: string) {
     const toast = await this.toastController.create({
-      message: message,
+      message,
       duration: 2000
     });
     toast.present();
