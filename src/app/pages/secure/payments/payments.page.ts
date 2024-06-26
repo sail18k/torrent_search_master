@@ -1,10 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSelect, IonInfiniteScroll, AlertController, ToastController } from '@ionic/angular';
+import {
+  IonSelect,
+  IonInfiniteScroll,
+  AlertController,
+  ToastController,
+} from '@ionic/angular';
 import { Observable, from, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { delay, filter, tap, map } from 'rxjs/operators';
 import { Browser } from '@capacitor/browser';
 import { Clipboard } from '@capacitor/clipboard';
+import { Share } from '@capacitor/share';
+
 
 @Component({
   selector: 'app-payments',
@@ -14,7 +21,8 @@ import { Clipboard } from '@capacitor/clipboard';
 export class PaymentsPage implements OnInit {
   @ViewChild('filterSelect', { static: false }) filterSelect: IonSelect;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-  jsonURL = 'https://cdn.jsdelivr.net/gh/sail18k/torrent_search_master@main/src/assets/json/fitgirl-final.json';
+  jsonURL =
+    'https://cdn.jsdelivr.net/gh/sail18k/torrent_search_master@main/src/assets/json/fitgirl-final.json';
   jsonData: any;
   torrentSearch = '';
   torrents: any = [];
@@ -24,12 +32,14 @@ export class PaymentsPage implements OnInit {
   page = 0;
   pageSize = 10;
   isModalOpen = false;
+  currentTorrent!: any;
 
   constructor(
     private http: HttpClient,
     private alertController: AlertController,
-    private clipboard: Clipboard, private toastController: ToastController
-  ) { }
+    private clipboard: Clipboard,
+    private toastController: ToastController
+  ) {}
 
   ngOnInit() {
     this.getJSON().subscribe((data) => {
@@ -71,7 +81,6 @@ export class PaymentsPage implements OnInit {
     }
   }
 
-
   performSearch(term: string) {
     from(this.jsonData)
       .pipe(
@@ -81,14 +90,16 @@ export class PaymentsPage implements OnInit {
         tap((suggestion) => this.torrents.push(suggestion)),
         tap(() => {
           if (this.displayedTorrents.length < this.pageSize) {
-            this.displayedTorrents.push(this.torrents[this.displayedTorrents.length]);
+            this.displayedTorrents.push(
+              this.torrents[this.displayedTorrents.length]
+            );
           }
         })
       )
       .subscribe({
         complete: () => {
           this.content_loaded = true;
-        }
+        },
       });
   }
 
@@ -111,7 +122,7 @@ export class PaymentsPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'No Torrent App Found',
       message: 'Please download a torrent app and try again.',
-      buttons: ['OK']
+      buttons: ['OK'],
     });
 
     await alert.present();
@@ -119,36 +130,43 @@ export class PaymentsPage implements OnInit {
 
   async openTorrent(magnetLink: any): Promise<void> {
     this.isModalOpen = !this.isModalOpen;
-    // try {
-    //   await Browser.open({ url: magnetLink });
-    // } catch (error) {
-    //   this.showAlert();
-    // }
+    this.currentTorrent = magnetLink;
   }
 
-  share() {
-
-  }
-
-  copy() {
-    const writeToClipboard = async () => {
-      await Clipboard.write({
-        // eslint-disable-next-line id-blacklist
-        string: 'Hello World!'
+  async share(torrent: any) {
+    try {
+      await Share.share({
+        title: 'Share Torrent',
+        text: torrent.game,
+        url: torrent.click_reults,
+        dialogTitle: 'Share with your friends'
       });
-    };
+    } catch (error) {
+      console.error('Error sharing', error);
+    }
+  }
+
+  async copy(magnetLink: any) {
+    await Clipboard.write({
+      // eslint-disable-next-line id-blacklist
+      string: magnetLink,
+    });
     this.presentToast('Copied to clipboard');
   }
 
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message,
-      duration: 2000
+      duration: 2000,
     });
     toast.present();
   }
 
-  download() {
-
+  async download(magnetLink: any) {
+    try {
+      await Browser.open({ url: magnetLink });
+    } catch (error) {
+      this.showAlert();
+    }
   }
 }
